@@ -23,6 +23,7 @@ BB="/busybox"
 
 # initialize working dir and log
 $BB cd /
+$BB echo ""
 $BB date >>boot.txt
 exec >>boot.txt 2>&1
 
@@ -38,7 +39,7 @@ $BB mkdir system
 $BB mkdir data
 
 #$BB mkdir /dev
-#$BB mkdir /dev/block
+$BB mkdir -p /dev/block
 
 $BB echo ""
 $BB echo "Generating device nodes ..."
@@ -71,7 +72,6 @@ fi
 if $BB [ "`/busybox grep $KV /system/lib/modules/ansi_cprng.ko`" ]; then
     $BB echo "kernel files already installed, nothing to do ... "
 else
-    $BB echo ""    
     $BB echo "Modules KO not found ... Updating modules ..."
 
     $BB rm -rf /system/lib/modules/*
@@ -83,9 +83,11 @@ else
 
     $BB mount -t ext4 /dev/block/mmcblk0p12 /data    
     if $BB [ -f /data/local/logger.ko ]; then
+	$BB echo ""
 	$BB echo "Found /data/local/logger.ko, updating ..."
 	$BB cp /system/lib/modules/logger.ko /data/local/logger.ko
     else
+	$BB echo ""
 	$BB echo "/data/local/logger.ko, Not found, skipping..."
     fi
     $BB umount /data
@@ -111,7 +113,7 @@ $BB echo "Command line:"
 $BB cat /proc/cmdline
 
 $BB echo ""
-$BB echo "Starting bootmode ..."
+$BB echo "Starting bootmode ramdisk tree creation ..."
 #if $BB grep -q bootmode=2 /proc/cmdline || $BB grep -q bootmode=9 /proc/cmdline ; then
     # recovery boot
 #    $BB echo "found recovery command, preparing boot..."
@@ -158,6 +160,7 @@ $BB rm -r /sdcard
 $BB rm -rf /jb_init
 #$BB rm -rf /ics_rec_init
 
+$BB echo ""
 $BB date >>boot.txt
 $BB rm -rf /dev/*
 
