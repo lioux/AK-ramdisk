@@ -1,4 +1,6 @@
 #########################################################
 RAMDISK CM9 GNEX - 4.0.4
-RAMDISK XXX GNEX - 4.1.0
+RAMDISK CM9 GNEX - 4.1.0
+- add init.d support
+- rework ramdisk concept to Semaphore Kernel
 #########################################################

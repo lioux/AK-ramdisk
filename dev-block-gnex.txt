@@ -1,0 +1,53 @@
+GNEX
+
+lrwxrwxrwx root     root              2012-07-02 18:26 xloader 	-> /dev/block/mmcblk0p1
+lrwxrwxrwx root     root              2012-07-02 18:26 sbl 		-> /dev/block/mmcblk0p2
+lrwxrwxrwx root     root              2012-07-02 18:26 efs 		-> /dev/block/mmcblk0p3
+lrwxrwxrwx root     root              2012-07-02 18:26 param 	-> /dev/block/mmcblk0p4
+lrwxrwxrwx root     root              2012-07-02 18:26 misc 	-> /dev/block/mmcblk0p5
+lrwxrwxrwx root     root              2012-07-02 18:26 dgs 		-> /dev/block/mmcblk0p6
+lrwxrwxrwx root     root              2012-07-02 18:26 boot 	-> /dev/block/mmcblk0p7
+lrwxrwxrwx root     root              2012-07-02 18:26 recovery -> /dev/block/mmcblk0p8
+lrwxrwxrwx root     root              2012-07-02 18:26 radio 	-> /dev/block/mmcblk0p9
+lrwxrwxrwx root     root              2012-07-02 18:26 system 	-> /dev/block/mmcblk0p10
+lrwxrwxrwx root     root              2012-07-02 18:26 cache 	-> /dev/block/mmcblk0p11
+lrwxrwxrwx root     root              2012-07-02 18:26 userdata -> /dev/block/mmcblk0p12
+lrwxrwxrwx root     root              2012-07-02 18:26 metadata -> /dev/block/mmcblk0p13
+
+brw------- root     root     179,   0 2012-07-02 18:26 mmcblk0
+brw------- root     root     179,   1 2012-07-02 18:26 mmcblk0p1
+brw------- root     root     179,   2 2012-07-02 18:26 mmcblk0p2
+brw------- root     root     179,   3 2012-07-02 18:26 mmcblk0p3
+brw-rw---- radio    radio    179,   4 2012-07-02 18:26 mmcblk0p4
+brw------- root     root     179,   5 2012-07-02 18:26 mmcblk0p5
+brw------- root     root     179,   6 2012-07-02 18:26 mmcblk0p6
+brw------- root     root     179,   7 2012-07-02 18:26 mmcblk0p7
+brw------- root     root     259,   0 2012-07-02 18:26 mmcblk0p8
+brw-rw---- radio    radio    259,   1 2012-07-02 18:26 mmcblk0p9
+brw------- root     root     259,   2 2012-07-02 18:26 mmcblk0p10
+brw------- root     root     259,   3 2012-07-02 18:26 mmcblk0p11
+brw------- root     root     259,   4 2012-07-02 18:26 mmcblk0p12
+brw------- root     root     259,   5 2012-07-02 18:26 mmcblk0p13
+
+
+$BB mknod /dev/block/mmcblk0 b 179 0
+$BB mknod /dev/block/mmcblk0p1 b 179 1
+$BB mknod /dev/block/mmcblk0p2 b 179 2
+$BB mknod /dev/block/mmcblk0p10 b 259 2
+$BB mknod /dev/block/mmcblk0p11 b 259 3
+
+$BB mount -t ext4 /dev/block/mmcblk0p10 /system
+$BB mount -t ext4 /dev/block/mmcblk0p11 /cache
+$BB mount -t ext4 /dev/block/mmcblk0p2 /data
+
+SGS
+
+$BB mknod /dev/block/mmcblk0 b 179 0
+$BB mknod /dev/block/mmcblk0p1 b 179 1
+$BB mknod /dev/block/mmcblk0p2 b 179 2
+$BB mknod /dev/block/mtdblock2 b 31 2
+$BB mknod /dev/block/mtdblock3 b 31 3
+
+$BB mount -t yaffs2 /dev/block/mtdblock2 /system
+$BB mount -t yaffs2 /dev/block/mtdblock3 /cache
+$BB mount -t ext4 /dev/block/mmcblk0p2 /data
