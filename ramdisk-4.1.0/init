@@ -1,4 +1,4 @@
-#!/jb_init/sbin/busybox sh
+#!/jb_init/sbin/bb/busybox sh
 #
 # AUTHORS:
 # Stratosk: http://forum.xda-developers.com/showthread.php?t=1468795
@@ -21,7 +21,7 @@ export PATH=/
 # Set busybox location, save busybox as we will move directories
 #
 
-/jb_init/sbin/busybox cp /jb_init/sbin/recovery /busybox
+/jb_init/sbin/bb/busybox cp /jb_init/sbin/bb/recovery /busybox
 BB="/busybox"
 
 #
@@ -29,13 +29,21 @@ BB="/busybox"
 #
 
 $BB cd /
-$BB echo ""
 $BB date >>boot.txt
 exec >>boot.txt 2>&1
 
+$BB echo ""
+$BB echo "#"
+$BB echo "# INITRAMFS STRUCTURE:"
+$BB echo "#"
+$BB echo "#  -- /jb_init                (jb initramfs)"
+$BB echo "#  -- /files/modules"
+$BB echo "#  -- /files/hw/"
+$BB echo "#"
+$BB echo ""
+
 $BB rm init
 
-$BB echo ""
 $BB echo "Generating mount directories ..."
 $BB mkdir proc
 $BB mkdir sys
@@ -46,18 +54,25 @@ $BB mkdir data
 
 $BB mkdir -p /dev/block
 
-$BB echo ""
 $BB echo "Generating device nodes ..."
 $BB mknod /dev/block/mmcblk0 b 179 0
 $BB mknod /dev/block/mmcblk0p10 b 259 2
 $BB mknod /dev/block/mmcblk0p11 b 259 3
 $BB mknod /dev/block/mmcblk0p12 b 259 4
 
-$BB echo ""
 $BB echo "Mounting devices ..."
 $BB mount -t proc proc /proc
 $BB mount -t sysfs sysfs /sys
 $BB mount -t ext4 /dev/block/mmcblk0p10 /system
+
+#
+# Detailed board info
+#
+REV=`$BB cat /sys/board_properties/revision`
+$BB echo ""
+$BB echo "Board revision: $REV"
+
+$BB cd /
 
 KV=`$BB uname -r`
 $BB echo ""
