@@ -11,7 +11,6 @@
 #  -- /files/hw/
 # 
 
-
 #APP='Semaphore.apk'
 
 export _PATH="$PATH"
@@ -24,11 +23,19 @@ export PATH=/
 /jb_init/sbin/bb/busybox cp /jb_init/sbin/bb/recovery /busybox
 BB="/busybox"
 
+$BB cd /
+
+#
+# Backup and clean logfile
+#
+
+cp boot.txt boot.txt.old
+rm boot.txt
+
 #
 # Initialize working dir and log
 #
 
-$BB cd /
 $BB date >>boot.txt
 exec >>boot.txt 2>&1
 
@@ -66,17 +73,18 @@ $BB mount -t sysfs sysfs /sys
 $BB mount -t ext4 /dev/block/mmcblk0p10 /system
 
 #
-# Detailed board info
+# Detailed Board Info
 #
+
 REV=`$BB cat /sys/board_properties/revision`
-$BB echo ""
-$BB echo "Board revision: $REV"
-
-$BB cd /
-
 KV=`$BB uname -r`
 $BB echo ""
-$BB echo "Version: $KV"
+$BB echo "KERNEL: $KV"
+$BB echo "BOARD: $REV"
+$BB echo -n "PATH: ";$BB echo $PATH
+$BB echo -n "ROM: ";$BB cat /system/build.prop|$BB grep ro.build.display.id
+$BB echo -n "BUSYBOX: ";$BB|$BB grep "BusyBox v"
+$BB echo ""
 
 if $BB [ ! -d /system/lib/modules ]; then 
     $BB echo ""    
