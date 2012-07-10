@@ -26,13 +26,6 @@ BB="/busybox"
 $BB cd /
 
 #
-# Backup and clean logfile
-#
-
-cp boot.txt boot.txt.old
-rm boot.txt
-
-#
 # Initialize working dir and log
 #
 
