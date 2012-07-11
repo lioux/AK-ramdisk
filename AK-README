@@ -1,12 +1,5 @@
 #########################################################
-RAMDISK CM9 GNEX - 4.1.0
-03/07/2012
-- add init.d support
-- rework ramdisk concept to Semaphore Kernel
-- fix ramdisk compression
-04/07/2012
-- Permit root adb - ramdisk default.prop
-- Prevent recovery to be erased - init.rc
-- Add default Freq. - init.tuna.rc
-- Fix some init.rc Freq. access permission
+RAMDISK ICS GNEX - 4.0.4
+RAMDISK JB GNEX - 4.1.0
+LIB - UPDATE
 #########################################################

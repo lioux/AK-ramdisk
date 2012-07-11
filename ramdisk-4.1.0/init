@@ -29,6 +29,7 @@ $BB cd /
 # Initialize working dir and log
 #
 
+$BB rm -rfv boot.txt
 $BB date >>boot.txt
 exec >>boot.txt 2>&1
 
@@ -79,6 +80,10 @@ $BB echo -n "ROM: ";$BB cat /system/build.prop|$BB grep ro.build.display.id
 $BB echo -n "BUSYBOX: ";$BB|$BB grep "BusyBox v"
 $BB echo ""
 
+#
+# Update dirs and libs
+#
+
 if $BB [ ! -d /system/lib/modules ]; then 
     $BB echo ""    
     $BB echo "Making modules directory ..."
@@ -93,10 +98,13 @@ else
 
     $BB rm -rf /system/lib/modules/*
     $BB cp /files/modules/* /system/lib/modules/
+    $BB ls -l /system/lib/modules/
 
-    #$BB echo "updating lights.aries.so..."
-    #$BB mv /files/hw/* /system/lib/hw/
-    #$BB chmod 644 /system/lib/hw/lights.aries.so
+    $BB echo ""
+    $BB echo "Updating Hardware Libs ..."
+    $BB mv /files/hw/* /system/lib/hw/
+    $BB chmod 644 /system/lib/hw/power.tuna.so
+    $BB ls -l /system/lib/hw/
 
     $BB mount -t ext4 /dev/block/mmcblk0p12 /data    
     if $BB [ -f /data/local/logger.ko ]; then
@@ -135,14 +143,14 @@ $BB mv /jb_init/* /
 
 $BB echo ""
 $BB echo "Debug output:"
+
+$BB echo ""
 $BB echo "Current /:"
 $BB ls -l /
+
+$BB echo ""
 $BB echo "Current /system:"
 $BB ls -l /system/
-$BB echo "Current /system/lib/modules:"
-$BB ls -l /system/lib/modules/
-$BB echo "Current /system/lib/hw:"
-$BB ls -l /system/lib/hw/
 
 $BB echo ""
 $BB echo "Cleaning up ..."

@@ -10,7 +10,6 @@ import /init.trace.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1200000    
     write /proc/1/oom_adj -16
 
     start ueventd
@@ -271,8 +270,11 @@ on boot
     chown root root /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
+    # Set maximum frequency at boot
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1200000
+
     # Lower maximum frequency when screen is off
-    #write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 691200
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 350000
 
     # Cpufreq interactive governor Tweak: timer 20ms, min sample 20ms, hispeed 1200MHz
     write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
