@@ -1,25 +1,14 @@
 #!/jb_init/sbin/bb/busybox sh
-#
-# AUTHORS:
-# Stratosk: http://forum.xda-developers.com/showthread.php?t=1468795
-# Mialwe: http://forum.xda-developers.com/showthread.php?t=1551410
-#
-# INITRAMFS STRUCTURE:
-# /
-#  -- /jb_init                (jb initramfs)
-#  -- /files/modules
-#  -- /files/hw/
-# 
-
-#APP='Semaphore.apk'
 
 export _PATH="$PATH"
 export PATH=/
 
-#
-# Set busybox location, save busybox as we will move directories
-#
+KV=`$BB uname -r`
+#APP='ak.apk'
 
+#
+# Set busybox location
+#
 /jb_init/sbin/bb/busybox cp /jb_init/sbin/bb/recovery /busybox
 BB="/busybox"
 
@@ -28,100 +17,92 @@ $BB cd /
 #
 # Initialize working dir and log
 #
+$BB rm -rf ak-boot.log
+$BB date >>ak-boot.log
 
-$BB rm -rfv boot.txt
-$BB date >>boot.txt
-exec >>boot.txt 2>&1
+exec >>ak-boot.log 2>&1
 
 $BB echo ""
 $BB echo "#"
-$BB echo "# INITRAMFS STRUCTURE:"
+$BB echo "# GENERAL INFO --------------------------------------------------------------------"
 $BB echo "#"
+$BB echo "# GNEX AUTHORS:"
+$BB echo "# Anarkia1976: http://forum.xda-developers.com/forumdisplay.php?f=656"
+$BB echo "#"
+$BB echo "# SGS AUTHORS:"
+$BB echo "# Stratosk: http://forum.xda-developers.com/showthread.php?t=1468795"
+$BB echo "# Mialwe: http://forum.xda-developers.com/showthread.php?t=1551410"
+$BB echo "#"
+$BB echo "# INITRAMFS STRUCTURE:"
+$BB echo "# /"
 $BB echo "#  -- /jb_init                (jb initramfs)"
 $BB echo "#  -- /files/modules"
 $BB echo "#  -- /files/hw/"
 $BB echo "#"
-$BB echo ""
 
 $BB rm init
 
-$BB echo "Generating mount directories ..."
+$BB echo "";$BB echo ""
+$BB echo "# FS AND LIBS ---------------------------------------------------------------------"
+$BB echo ""
+$BB echo "GENERATING MOUNT DIR ..."
 $BB mkdir proc
 $BB mkdir sys
 $BB mkdir cache
 $BB mkdir sdcard
 $BB mkdir system
 $BB mkdir data
-
 $BB mkdir -p /dev/block
-
-$BB echo "Generating device nodes ..."
+$BB echo "GENERATING DEVICE NODES ..."
 $BB mknod /dev/block/mmcblk0 b 179 0
 $BB mknod /dev/block/mmcblk0p10 b 259 2
 $BB mknod /dev/block/mmcblk0p11 b 259 3
 $BB mknod /dev/block/mmcblk0p12 b 259 4
-
-$BB echo "Mounting devices ..."
+$BB echo "MOUNTING DEVICES ..."
 $BB mount -t proc proc /proc
 $BB mount -t sysfs sysfs /sys
 $BB mount -t ext4 /dev/block/mmcblk0p10 /system
 
-#
-# Detailed Board Info
-#
-
-REV=`$BB cat /sys/board_properties/revision`
-KV=`$BB uname -r`
-$BB echo ""
-$BB echo "KERNEL: $KV"
-$BB echo "BOARD: $REV"
-$BB echo -n "PATH: ";$BB echo $PATH
-$BB echo -n "ROM: ";$BB cat /system/build.prop|$BB grep ro.build.display.id
-$BB echo -n "BUSYBOX: ";$BB|$BB grep "BusyBox v"
-$BB echo ""
-
-#
-# Update dirs and libs
-#
-
-if $BB [ ! -d /system/lib/modules ]; then 
-    $BB echo ""    
-    $BB echo "Making modules directory ..."
+if $BB [ ! -d /system/lib/modules ]; then   
+	$BB echo ""
+    $BB echo "MAKING MODULES DIRECTORY ..."
     $BB mkdir /system/lib/modules
     $BB chmod 777 /system/lib/modules
 fi
 
 if $BB [ "`/busybox grep $KV /system/lib/modules/ansi_cprng.ko`" ]; then
-    $BB echo "kernel files already installed, nothing to do ... "
+	$BB echo ""
+    $BB echo "KERNEL FILES OK, NOTHING TO DO ... "
 else
-    $BB echo "Modules KO not found ... Updating modules ..."
-
+	$BB echo ""
+    $BB echo "UPDATE MODULE LIBS ..."
     $BB rm -rf /system/lib/modules/*
-    $BB cp /files/modules/* /system/lib/modules/
+    $BB cp -vr /files/modules/* /system/lib/modules/
+	$BB echo "LIST ALL MODULE LIBS ..."
     $BB ls -l /system/lib/modules/
-
-    $BB echo ""
-    $BB echo "Updating Hardware Libs ..."
+	
+	$BB echo ""
+    $BB echo "UPDATE HARDWARE LIBS ..."
     $BB mv /files/hw/* /system/lib/hw/
     $BB chmod 644 /system/lib/hw/power.tuna.so
+    $BB echo "LIST ALL HW LIBS ..."
     $BB ls -l /system/lib/hw/
 
-    $BB mount -t ext4 /dev/block/mmcblk0p12 /data    
+    $BB mount -t ext4 /dev/block/mmcblk0p12 /data  
     if $BB [ -f /data/local/logger.ko ]; then
-	$BB echo ""
-	$BB echo "Found /data/local/logger.ko, updating ..."
-	$BB cp /system/lib/modules/logger.ko /data/local/logger.ko
+        $BB echo "FOUND /data/local/logger.ko, UPDATING ..."
+        $BB cp /system/lib/modules/logger.ko /data/local/logger.ko
     else
-	$BB echo ""
-	$BB echo "/data/local/logger.ko, Not found, skipping..."
+		$BB echo ""
+        $BB echo "/data/local/logger.ko, NOT FOUND, SKIPPING ..."
     fi
     $BB umount /data
     
     if $BB [ ! -d /system/etc/init.d ]; then 
-        $BB echo ""	
-        $BB echo "Making init.d directory ..."
-	$BB mkdir /system/etc/init.d
-	$BB chmod 777 /system/etc/init.d
+		$BB echo ""
+        $BB echo "MAKING INIT.D DIRECTORY ..."
+        $BB mkdir /system/etc/init.d
+        $BB chmod 777 /system/etc/init.d
     fi
 
     #$BB echo "coping kernel control apk"
@@ -133,48 +114,68 @@ else
     #$BB chmod 644 /system/app/$APP
 fi
 
+$BB echo "";$BB echo ""
+$BB echo "# BOARD INFO ----------------------------------------------------------------------"
 $BB echo ""
-$BB echo "Command line:"
-$BB cat /proc/cmdline
+$BB echo -n "KERNEL  : ";$BB uname -r
+$BB echo -n "BOARD   : ";$BB cat /sys/board_properties/revision | $BB cut -d " " -f1
+$BB echo -n "PATH    : ";$BB echo $PATH
+$BB echo -n "ROM     : ";$BB cat /system/build.prop | $BB grep ro.build.display.id | $BB cut -d "=" -f2
+$BB echo -n "BUSYbox : ";$BB | $BB grep "BusyBox v" | $BB cut -d " " -f2
 
+$BB sleep 1
+
+$BB echo "";$BB echo ""
+$BB echo "# CPU INFO ------------------------------------------------------------------------"
 $BB echo ""
-$BB echo "Starting bootmode ramdisk tree creation ..."
+$BB echo -n "GOVERNOR    : ";$BB cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+$BB echo -n "MINfreq     : ";$BB cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+$BB echo -n "MAXfreq     : ";$BB cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+$BB echo -n "OFFfreq     : ";$BB cat /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
+$BB echo -n "CPUtemp     : ";$BB cat /sys/devices/platform/omap/omap_temp_sensor.0/temperature
+$BB echo -n "ONLINEcpu   : ";$BB cat /sys/devices/system/cpu/online
+
+$BB echo "";$BB echo ""
+$BB echo "# CPU STATS -----------------------------------------------------------------------"
+$BB echo ""
+$BB echo "CPU : normal/nice/idle/iowait/irq"
+$BB cat /proc/stat | $BB awk '/^cpu[0-1]/ { print $1": "$2"/"$3"/"$5"/"$6"/"$7 }'
+
+$BB echo "";$BB echo ""
+$BB echo "# RAM INFO ------------------------------------------------------------------------"
+$BB echo ""
+$BB echo -n "MINFREE : ";$BB cat /sys/module/lowmemorykiller/parameters/minfree
+$BB echo -n "ADJ     : ";$BB cat /sys/module/lowmemorykiller/parameters/adj
+
+$BB echo "";$BB echo ""
+$BB echo "# GENERAL INFO --------------------------------------------------------------------"
+$BB echo ""
+$BB echo "STARTING BOOT MODE RAMDISK ..."
 $BB mv /jb_init/* /
-
 $BB echo ""
-$BB echo "Debug output:"
-
-$BB echo ""
-$BB echo "Current /:"
+$BB echo "CURRENT DIR ROOT:"
 $BB ls -l /
-
 $BB echo ""
-$BB echo "Current /system:"
+$BB echo "CURRENT DIR SYSTEM:"
 $BB ls -l /system/
-
 $BB echo ""
-$BB echo "Cleaning up ..."
+$BB echo "CLEANING UP ..."
 $BB umount /sys
 $BB umount /proc
 $BB umount /system
 $BB rm -r /files
 $BB rm -r /sdcard
 
+$BB echo ""
+$BB date >>ak-boot.log
+
 #
-# Original initramfs directories not needed anymore,
-# busybox not needed anymore...
+# Remove Original initramfs directories
+# and busybox not needed anymore ...
 #
 
 $BB rm -rf /jb_init
-
-$BB echo ""
-$BB date >>boot.txt
 $BB rm -rf /dev/*
-
-#
-# Finally remove busybox
-#
-
 $BB rm /busybox
 
 export PATH="${_PATH}"
