@@ -120,7 +120,8 @@ $BB echo ""
 $BB echo -n "KERNEL  : ";$BB uname -r
 $BB echo -n "BOARD   : ";$BB cat /sys/board_properties/revision | $BB cut -d " " -f1
 $BB echo -n "PATH    : ";$BB echo $PATH
-$BB echo -n "ROM     : ";$BB cat /system/build.prop | $BB grep ro.build.display.id | $BB cut -d "=" -f2
+$BB echo -n "ROM v.  : ";$BB cat /system/build.prop | $BB grep ro.build.display.id | $BB cut -d "=" -f2
+$BB echo -n "ROM s.  : ";$BB cat /system/build.prop | $BB grep ro.build.id | $BB cut -d "=" -f2
 $BB echo -n "BUSYbox : ";$BB | $BB grep "BusyBox v" | $BB cut -d " " -f2
 
 $BB sleep 1
