@@ -1,8 +1,16 @@
 ui_print("");
-ui_print("Installing Anarkykernel ... Please Wait ...");
+ui_print(" AK Install Script:               ");
+ui_print("    _____                         ");
+ui_print("   (, /  |              /)   ,    ");
+ui_print("     /---| __   _   __ (/_     __ ");
+ui_print("  ) /    |_/ (_(_(_/ (_/(___(_(_(_");
+ui_print(" ( /                              ");
+ui_print(" _/                               ");
 ui_print("");
 set_progress(1.000000);
+ui_print(" > Installing AK Kernel ...");
 package_extract_file("boot.img", "/dev/block/platform/omap/omap_hsmmc.0/by-name/boot");
+ui_print(" > Installation is finished ...");
+ui_print(" > Please Reboot ...");
 ui_print("");
-ui_print("Successfuly installed ... Please Reboot ...");
 ui_print("");
