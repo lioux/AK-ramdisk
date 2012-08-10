@@ -18,6 +18,13 @@ $bb cp /system/lib/hw/power.tuna.so /system/lib/hw/power.tuna.so.bak
 $bb cp /sbin/files/hw/power.tuna.so /system/lib/hw
 $bb chmod 644 /system/lib/hw/power.tuna.so
 
+echo "0" > /sys/module/wakelock/parameters/debug_mask
+echo "0" > /sys/module/userwakelock/parameters/debug_mask
+echo "0" > /sys/module/earlysuspend/parameters/debug_mask
+echo "0" > /sys/module/alarm/parameters/debug_mask
+echo "0" > /sys/module/alarm_dev/parameters/debug_mask
+echo "0" > /sys/module/binder/parameters/debug_mask
+
 $bb echo "List .so libraries:"
 $bb ls -l /system/lib/hw/
 
