@@ -1,10 +1,11 @@
-#!/sbin/bb/busybox sh
+#!/sbin/bb/busybox ash
 
 bb="/sbin/bb/busybox"
 log="/data/ak-boot.log"
 logbck="/data/ak-boot.log.bck"
 
-#$bb mount -o rw,remount /system
+$bb mount -o rw,remount /system
+
 $bb cp -vr $log $logbck
 $bb rm -rf $log
 
@@ -53,6 +54,6 @@ $bb date >>$log
 $bb echo "End -----------------------------------------------------"
 $bb echo ""
 
-#$bb mount -o ro,remount /system
+$bb mount -o ro,remount /system
 
 exit
