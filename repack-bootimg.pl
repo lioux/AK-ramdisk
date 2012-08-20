@@ -12,7 +12,7 @@ die $usage unless $ARGV[0] && $ARGV[1] && $ARGV[2];
 
 chdir $ARGV[1] or die "$ARGV[1] $!";
 
-system ("find . | cpio -o -H newc | lzo > $dir/ramdisk-repack.cpio.lzo");
+system ("find . | cpio -o -H newc | lzop > $dir/ramdisk-repack.cpio.lzo");
 
 chdir $dir or die "$ARGV[1] $!";;
 
