@@ -236,6 +236,7 @@ on boot
 # level system server to be able to adjust the kernel OOM driver
 # parameters to match how it is managing things.
     write /proc/sys/vm/overcommit_memory 1
+    write /proc/sys/vm/compact_memory 1
     write /proc/sys/vm/min_free_order_shift 4
     chown root system /sys/module/lowmemorykiller/parameters/adj
     chmod 0664 /sys/module/lowmemorykiller/parameters/adj
@@ -267,7 +268,7 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
@@ -279,7 +280,7 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/input_boost
 
-    # allow system to modify cpufreq control files for CM10 compatibility
+    # Allow system to modify cpufreq control files for CM10 compatibility
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
@@ -287,8 +288,9 @@ on boot
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
-    # Assume SMP uses shared cpufreq policy for all CPUs
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    # Allow system to change scheduler for CM10 compatibility
+    chown system system /sys/block/mmcblk0/queue/scheduler
+    chmod 0664 /sys/block/mmcblk0/queue/scheduler
 
     # Lower maximum frequency when screen is off
     write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 384000
@@ -544,9 +546,7 @@ service userinit /system/xbin/busybox run-parts /system/etc/init.d
     user root
     group root
 
-#
 # Set and Tuning AK kernel
-# 
 service akconfiguration /sbin/akconfiguration.sh
     class main
     oneshot
