@@ -9,13 +9,6 @@ $bb rm -rf $log
 
 exec >>$log 2>&1
 
-echo "0" > /sys/module/wakelock/parameters/debug_mask
-echo "0" > /sys/module/userwakelock/parameters/debug_mask
-echo "0" > /sys/module/earlysuspend/parameters/debug_mask
-echo "0" > /sys/module/alarm/parameters/debug_mask
-echo "0" > /sys/module/alarm_dev/parameters/debug_mask
-echo "0" > /sys/module/binder/parameters/debug_mask
-
 $bb echo ""
 $bb echo "Fix power.tuna.so Lib -----------------------------------"
 $bb date >>$log
