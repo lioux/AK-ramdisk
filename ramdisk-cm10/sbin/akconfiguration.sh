@@ -9,22 +9,27 @@ $bb rm -rf $log
 
 exec >>$log 2>&1
 
-$bb echo ""
-$bb echo "Fix power.tuna.so Lib -----------------------------------"
 $bb date >>$log
-$bb echo "List .so libraries:"
-$bb ls -l /system/lib/hw/
-$bb date >>$log
-$bb echo "End -----------------------------------------------------"
-$bb echo ""
 
-$bb echo ""
-$bb echo "Copy modules Lib ----------------------------------------"
-$bb date >>$log
-$bb echo "List .ko libraries:"
+echo""
+
+$bb echo "KERNEL INFO ----------------------------------------"
+$bb echo "Kernel-Version:"
+$bb cat /proc/version
+$bb echo "END -----------------------------------------------------";echo""
+
+$bb echo "LAST REBOOT ----------------------------------------"
+$bb date +"Last Reboot: %d.%m.%y / %H:%m" -d @$(( $(date +%s) - $(cut -f1 -d. /proc/uptime) ));
+$bb echo "END -----------------------------------------------------";echo""
+
+$bb echo "LIST HW LIB -----------------------------------"
+$bb echo "List libraries:"
+$bb ls -l /system/lib/hw/
+$bb echo "END -----------------------------------------------------";echo""
+
+$bb echo "LIST MODULE LIB ----------------------------------------"
+$bb echo "List libraries:"
 $bb ls -l /system/lib/modules/
-$bb date >>$log
-$bb echo "End -----------------------------------------------------"
-$bb echo ""
+$bb echo "END -----------------------------------------------------";echo""
 
 exit
