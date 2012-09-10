@@ -22,6 +22,16 @@ $bb echo "LAST REBOOT ----------------------------------------"
 $bb date +"Last Reboot: %d.%m.%y / %H:%m" -d @$(( $(date +%s) - $(cut -f1 -d. /proc/uptime) ));
 $bb echo "END -----------------------------------------------------";echo""
 
+$bb echo "ROM VERSION ----------------------------------------"
+echo "ROM Version:"
+getprop ro.modversion
+getprop cm.version
+getprop ro.build.description
+getprop ro.build.date
+getprop ro.build.display.id
+getprop ro.build.id
+$bb echo "END -----------------------------------------------------";echo""
+
 $bb echo "LIST HW LIB -----------------------------------"
 $bb echo "List libraries:"
 $bb ls -l /system/lib/hw/

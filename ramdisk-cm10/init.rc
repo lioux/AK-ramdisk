@@ -306,6 +306,9 @@ on boot
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1350000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1350000
 
+    # Set Gamma Adjustment and Disable Content Adaptive Brightness
+    write /sys/devices/platform/omapdss/manager0/gamma 6
+
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
