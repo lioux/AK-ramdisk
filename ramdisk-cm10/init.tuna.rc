@@ -240,9 +240,7 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
 service battery_charger /charger
 	class charger
 
-#
 # Fix power tuna frequency problem
-#
 service fixtunapower /sbin/fixtunapower.sh
     class main
     oneshot

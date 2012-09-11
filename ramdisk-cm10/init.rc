@@ -241,8 +241,8 @@ on boot
     chmod 0664 /sys/module/lowmemorykiller/parameters/adj
     chown root system /sys/module/lowmemorykiller/parameters/minfree
     chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
-	write /sys/module/lowmemorykiller/parameters/minfree 8099,10132,20000,20000,50000,100000
-	write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,8,15
+    write /sys/module/lowmemorykiller/parameters/minfree 8099,10132,20000,20000,50000,100000
+    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,8,15
 		
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
@@ -274,6 +274,12 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
     chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/input_boost
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
 
     # Allow system to modify cpufreq control files for CM10 compatibility
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -292,18 +298,18 @@ on boot
 
     # Cpufreq interactive governor Tweaks: hispeed_freq
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1350000
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 
     # Cpufreq interactive governor Tweaks: min_sample_time
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 100000
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
 
     # Cpufreq interactive governor Tweaks: go_hispeed_load
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
 
     # Set max frequency
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1350000
