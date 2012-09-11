@@ -264,27 +264,8 @@ on boot
     chmod 0660 /sys/power/wake_lock
     chmod 0660 /sys/power/wake_unlock
 
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/boost
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boost
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/input_boost
-
     chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boost
@@ -309,13 +290,20 @@ on boot
     # Lower maximum frequency when screen is off
     write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 700000
 
-    # Cpufreq interactive governor Tweaks
-    #chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    #write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1350000
-    #chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    #write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 80
-    #write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
-    #write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
+    # Cpufreq interactive governor Tweaks: hispeed_freq
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1350000
+
+    # Cpufreq interactive governor Tweaks: min_sample_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 100000
+
+    # Cpufreq interactive governor Tweaks: go_hispeed_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
 
     # Set max frequency
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1350000
