@@ -64,4 +64,42 @@ $bb echo "List libraries:"
 $bb ls -l /system/lib/modules/
 $bb echo "END ------------------------------------------------";echo""
 
+$bb echo "CPU INFO -------------------------------------------"
+$bb echo "Cpu info:"
+scaling_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+$bb echo "CPU Governor: $scaling_governor"
+cpuinfo_cur_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq);
+$bb echo "Cur. Freq: $cpuinfo_cur_freq"
+scaling_max_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq);
+$bb echo "Max. Freq: $scaling_max_freq"
+scaling_min_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq);
+$bb echo "Min. Freq: $scaling_min_freq"
+total_trans=$(cat /sys/devices/system/cpu/cpu0/cpufreq/stats/total_trans);
+$bb echo "Total Freq Switch: $total_trans"
+$bb echo ""
+$bb echo "Time In State:"
+cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state
+for i in `cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state | cut -f 2 -d ' '`; do
+summe=$(($summe+$i));
+done;
+summe=$(($summe/100));
+summe=$(($summe/60));
+if [ $summe -lt 60 ]; then
+$bb echo "uptime with CPU on: $summe min"
+else
+summe=$(($summe/60));
+$bb echo "uptime with CPU on: $summe h"
+fi;
+$bb echo ""
+$bb echo "Uptime:"
+$bb uptime
+$bb echo ""
+$bb echo "more CPU Infos:"
+cpuinfo_cur_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq);
+for i in `ls /sys/devices/system/cpu/cpu0/cpufreq/`; do
+$bb echo $i;
+cat /sys/devices/system/cpu/cpu0/cpufreq/$i
+done;
+$bb echo "END ------------------------------------------------";echo""
+
 exit
