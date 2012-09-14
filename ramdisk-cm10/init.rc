@@ -78,7 +78,7 @@ loglevel 3
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
-    write /proc/sys/kernel/randomize_va_space 0
+    write /proc/sys/kernel/randomize_va_space 2
     write /proc/sys/kernel/kptr_restrict 2
     write /proc/sys/kernel/dmesg_restrict 1
     write /proc/sys/vm/mmap_min_addr 32768
@@ -236,19 +236,20 @@ on boot
 # level system server to be able to adjust the kernel OOM driver
 # parameters to match how it is managing things.
     write /proc/sys/vm/overcommit_memory 1
+    write /proc/sys/vm/compact_memory 1
     write /proc/sys/vm/min_free_order_shift 4
     chown root system /sys/module/lowmemorykiller/parameters/adj
     chmod 0664 /sys/module/lowmemorykiller/parameters/adj
     chown root system /sys/module/lowmemorykiller/parameters/minfree
     chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
-    write /sys/module/lowmemorykiller/parameters/minfree 8099,10132,20000,20000,50000,100000
-    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,8,15
+    #write /sys/module/lowmemorykiller/parameters/minfree 8099,10132,20000,20000,50000,100000
+    #write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,8,15
 		
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio 5
-    write /proc/sys/vm/vfs_cache_pressure 300
-    write /proc/sys/vm/swappiness 0
+    #write /proc/sys/vm/vfs_cache_pressure 300
+    #write /proc/sys/vm/swappiness 0
 
     # Permissions for System Server and daemons.
     chown radio system /sys/android_power/state
@@ -282,38 +283,48 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
 
     # Allow system to modify cpufreq control files for CM10 compatibility
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
 
     # Allow system to change scheduler for CM10 compatibility
     chown system system /sys/block/mmcblk0/queue/scheduler
     chmod 0664 /sys/block/mmcblk0/queue/scheduler
 
     # Lower maximum frequency when screen is off
-    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 700000
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 614400
 
     # Cpufreq interactive governor Tweaks: hispeed_freq
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1350000
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    #write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1228800
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 
     # Cpufreq interactive governor Tweaks: min_sample_time
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 100000
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    #write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
 
     # Cpufreq interactive governor Tweaks: go_hispeed_load
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
-    chmod 0444 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    #write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 80
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+
+    # Set min frequency
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 307200
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 307200
 
     # Set max frequency
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1350000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1350000
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1228800
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1228800
 
     # Set Gamma Adjustment and Disable Content Adaptive Brightness
     write /sys/devices/platform/omapdss/manager0/gamma 6
