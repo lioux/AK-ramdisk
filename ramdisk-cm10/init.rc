@@ -244,8 +244,8 @@ on boot
     chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
 
     # Tweak - lmk - values
-    #write /sys/module/lowmemorykiller/parameters/minfree 8099,10132,20000,20000,50000,100000
-    #write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,8,15
+    write /sys/module/lowmemorykiller/parameters/minfree 100,200,20000,20000,20000,25000
+    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,8,15
 		
     # Tweak - background - writeout
     write /proc/sys/vm/dirty_expire_centisecs 200
