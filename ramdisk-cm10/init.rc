@@ -279,7 +279,7 @@ on boot
 
     # Cpufreq - interactive -  governor Tweaks
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    #write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1228800
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1344000
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     #write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
@@ -325,6 +325,9 @@ on boot
 
     # Set - Gamma Adjustment -
     write /sys/devices/platform/omapdss/manager0/gamma 6
+
+    # Set - Power aware SMP scheduler -
+    write /sys/devices/system/cpu/sched_mc_power_savings 1
 
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
