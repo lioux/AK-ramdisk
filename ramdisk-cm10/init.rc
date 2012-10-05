@@ -269,9 +269,7 @@ on boot
 
     # Allow system to modify - cpufreq control - files for CM10 compatibility
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
 
     # Allow system to change - scheduler - for CM10 compatibility
     chown system system /sys/block/mmcblk0/queue/scheduler
@@ -279,13 +277,10 @@ on boot
 
     # Cpufreq - interactive -  governor Tweaks
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1344000
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    #write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    #write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 80
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
@@ -309,19 +304,13 @@ on boot
 
     # Set - min frequency -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 345600
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 345600
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
     # Set - max frequency -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1344000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1344000
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
     # Set - Gamma Adjustment -
     write /sys/devices/platform/omapdss/manager0/gamma 6
