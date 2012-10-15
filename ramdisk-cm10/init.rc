@@ -310,7 +310,7 @@ on boot
     chmod 0644 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 
     # Set - Gamma Adjustment -
-    write /sys/devices/platform/omapdss/manager0/gamma 8
+    write /sys/devices/platform/omapdss/manager0/gamma 6
 
     # Set - Power aware SMP scheduler -
     #write /sys/devices/system/cpu/sched_mc_power_savings 1
