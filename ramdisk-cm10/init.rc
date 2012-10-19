@@ -28,6 +28,8 @@ loglevel 3
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
     export ANDROID_CACHE /cache
+    export TERMINFO /system/etc/terminfo
+    export TERM linux
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
@@ -555,6 +557,13 @@ on property:service.adb.tcp.port=5555
 on property:service.adb.tcp.port=-1
     stop adbd
     start adbd
+
+# Compcache - handle at boot
+service compcache /system/bin/handle_compcache
+    class main
+    user root
+    group root
+    oneshot
 
 # Execute files in /etc/init.d before booting
 service userinit /system/xbin/busybox run-parts /system/etc/init.d
