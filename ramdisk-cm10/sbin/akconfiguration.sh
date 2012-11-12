@@ -29,6 +29,10 @@ getprop ro.build.display.id
 getprop ro.build.id
 $bb echo "END ------------------------------------------------";echo""
 
+$bb echo "ZRAM AND SWAP INFO ---------------------------------"
+$bb cat /proc/swaps;
+$bb echo "END ------------------------------------------------";echo""
+
 $bb echo "MEM INFO -------------------------------------------"
 $bb free;
 $bb cat /proc/meminfo;
@@ -53,6 +57,10 @@ $bb echo "END ------------------------------------------------";echo""
 
 $bb echo "LIST MODULE LIB ------------------------------------"
 $bb ls -l /system/lib/modules/
+$bb echo "END ------------------------------------------------";echo""
+
+$bb echo "LIST INIT.D DIR ------------------------------------"
+$bb ls -l /system/etc/init.d/
 $bb echo "END ------------------------------------------------";echo""
 
 $bb echo "CPU INFO -------------------------------------------"
