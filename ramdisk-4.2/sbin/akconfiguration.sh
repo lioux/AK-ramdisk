@@ -1,8 +1,13 @@
 #!/sbin/bb/busybox ash
 
 bb="/sbin/bb/busybox"
-log="/data/ak-boot.log"
-logbck="/data/ak-boot.log.bck"
+log="/data/ak/ak-boot.log"
+logbck="/data/ak/ak-boot.log.bck"
+
+#
+# Set sysctl Optimizations
+#
+/system/bin/set_sysctl
 
 $bb cp -vr $log $logbck
 $bb rm -rf $log
