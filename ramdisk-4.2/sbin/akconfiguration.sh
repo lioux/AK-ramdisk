@@ -34,6 +34,10 @@ getprop ro.build.display.id
 getprop ro.build.id
 $bb echo "END ------------------------------------------------";echo""
 
+$bb echo "SYSCTL VM INFO ---------------------------------"
+sysctl -a | grep vm;
+$bb echo "END ------------------------------------------------";echo""
+
 $bb echo "ZRAM AND SWAP INFO ---------------------------------"
 $bb cat /proc/swaps;
 $bb echo "END ------------------------------------------------";echo""
