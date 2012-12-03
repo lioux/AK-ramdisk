@@ -319,6 +319,30 @@ on boot
     # Lower maximum - frequency when screen is off -
     write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 700000
 
+    # Set - min frequency -
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 350000
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    # Set - max frequency -
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1200000
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+    # Set Interactive - hispeed_freq -
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 700000
+    chmod 0644 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate
+    chown system system /sys/devices/system/cpu/cpu0/online
+    chmod 0664 /sys/devices/system/cpu/cpu0/online
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chmod 0664 /sys/devices/system/cpu/cpu1/online
+    chown system system /sys/power/perflock
+    chmod 0664 /sys/power/perflock
+
     # Set - Gamma Adjustment -
     write /sys/devices/platform/omapdss/manager0/gamma 6
 
