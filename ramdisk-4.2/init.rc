@@ -317,21 +317,21 @@ on boot
     chmod 0664 /sys/block/mmcblk0/queue/scheduler
 
     # Lower maximum - frequency when screen is off -
-    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 700000
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 691200
 
     # Set - min frequency -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 350000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 345600
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
     # Set - max frequency -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1200000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1305600
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
     # Set Interactive - hispeed_freq -
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 700000
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 691200
     chmod 0644 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate
