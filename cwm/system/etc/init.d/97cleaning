@@ -6,11 +6,11 @@
 
 LOG_FILE=/data/ak/cleaning.log
 
-if [ -e $LOG_FILE ]; then
-	rm $LOG_FILE;
-fi;
+#if [ -e $LOG_FILE ]; then
+#	rm $LOG_FILE;
+#fi;
 
-echo "Folletto Cleaning Start $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
+echo""; echo "Folletto Cleaning Start $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
 
 rm -rf /data/lost+found/* 2> /dev/null;
 rm -rf /system/lost+found/* 2> /dev/null;

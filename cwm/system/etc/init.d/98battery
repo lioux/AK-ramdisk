@@ -6,11 +6,12 @@
 
 LOG_FILE=/data/ak/battery.log
 
-if [ -e $LOG_FILE ]; then
-	rm $LOG_FILE;
-fi;
+#if [ -e $LOG_FILE ]; then
+#	rm $LOG_FILE;
+#fi;
 
-echo "Starting Battery Check $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
+
+echo""; echo "Starting Battery Check $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
 
 LEVEL=`cat /sys/class/power_supply/battery/capacity`;
 CURR_ADC=`cat /sys/class/power_supply/battery/voltage_now`;
