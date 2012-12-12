@@ -1,0 +1,26 @@
+#!/system/bin/sh
+#
+# Anarkia1976
+# Wipe if 100%
+#
+
+LOG_FILE=/data/ak/battery.log
+
+if [ -e $LOG_FILE ]; then
+	rm $LOG_FILE;
+fi;
+
+echo "Starting Battery Check $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
+
+LEVEL=`cat /sys/class/power_supply/battery/capacity`;
+CURR_ADC=`cat /sys/class/power_supply/battery/voltage_now`;
+BATTFULL=`cat /sys/class/power_supply/battery/status`;
+
+echo "*** LEVEL: $LEVEL - CUR: $CURR_ADC - STATUS: $BATTFULL ***" | tee -a $LOG_FILE
+
+if [ "$LEVEL" == "100" ] && [ "$BATTFULL" == "Full" ]; then
+ rm -f /data/system/batterystats.bin;
+ echo "Battery-calibration done ..."; | tee -a $LOG_FILE
+fi;
+
+echo "Battery Check finished at $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
