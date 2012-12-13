@@ -4,23 +4,32 @@
 # Cleaning Folletto Style
 #
 
-LOG_FILE=/data/ak/cleaning.log
+log=/data/ak/cleaning.log
+bb="/sbin/bb/busybox"
 
 #if [ -e $LOG_FILE ]; then
 #	rm $LOG_FILE;
 #fi;
 
-echo""; echo "Folletto Cleaning Start $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
+$bb echo "";
+exec >>$log 2>&1
+$bb date >>$log
 
-rm -rf /data/lost+found/* 2> /dev/null;
-rm -rf /system/lost+found/* 2> /dev/null;
-rm -rf /preload/lost+found/* 2> /dev/null;
-rm -rf /cache/lost+found/* 2> /dev/null;
-rm -rf /data/tombstones/* 2> /dev/null;
-rm -rf /data/anr/* 2> /dev/null;
-rm -rf /cache/*.apkbusybox;
-rm -rf /cache/*.tmpbusybox;
-rm -rf /data/dalvik-cache/*.apkbusybox;
-rm -rf /data/dalvik-cache/*.tmp;
+$bb echo "-------------------------------------------------------------";
+$bb echo "Folletto Cleaning Start $( date +"%m-%d-%Y %H:%M:%S" )";
 
-echo "Folletto Cleaning finished at $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
+$bb rm -rf /data/lost+found/* 2> /dev/null;
+$bb rm -rf /system/lost+found/* 2> /dev/null;
+$bb rm -rf /preload/lost+found/* 2> /dev/null;
+$bb rm -rf /cache/lost+found/* 2> /dev/null;
+$bb rm -rf /data/tombstones/* 2> /dev/null;
+$bb rm -rf /data/anr/* 2> /dev/null;
+$bb rm -rf /cache/*.apkbusybox;
+$bb rm -rf /cache/*.tmpbusybox;
+$bb rm -rf /data/dalvik-cache/*.apkbusybox;
+$bb rm -rf /data/dalvik-cache/*.tmp;
+
+$bb echo "Folletto Cleaning finished at $( date +"%m-%d-%Y %H:%M:%S" )";
+$bb echo "-------------------------------------------------------------";
+
+exit
