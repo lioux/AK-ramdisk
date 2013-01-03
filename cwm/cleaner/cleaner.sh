@@ -1,19 +1,5 @@
 #!/sbin/sh
 
-# clean modules
-rm -rf /system/modules
-rm -rf /system/lib/modules
-
-# clean boot sound
-rm -f /system/media/audio/poweron/PowerOn.*
-rm -f /system/media/audio/poweron/poweron.*
-
-# clean CMPlus stuff
-rm -f /system/etc/cmplus.conf
-rm -f /system/bin/cmplus
-rm -f /system/bin/list
-rm -f /sdcard/cmplus.conf
-
 # clean Popcorn stuff
 rm -f /system/etc/sysctl.conf
 rm -rf /data/cron
@@ -44,11 +30,6 @@ rm -f $INITD_DIR/89airtweaks
 rm -f $INITD_DIR/98airtweak
 rm -f $INITD_DIR/98airtweaks
 rm -f $INITD_DIR/99airtweaks
-# CMPlus
-rm -f $INITD_DIR/98cmplus
-# CM Default
-rm -f $INITD_DIR/00banner
-rm -f $INITD_DIR/90userinit
 # franco
 rm -f $INITD_DIR/13overclock
 rm -f $INITD_DIR/00turtle
@@ -64,10 +45,6 @@ rm -f $INITD_DIR/99nstools
 rm -f $INITD_DIR/99lk-gpu
 # Zen
 rm -f $INITD_DIR/99ZenKernel
-# Xylon
-rm -f $INITD_DIR/01cherrybomb
-rm -f $INITD_DIR/09cron
-rm -f $INITD_DIR/98fruit
 
 # clean kernel setting app shared_prefs
 rm -rf /data/data/mobi.cyann.nstools/shared_prefs
