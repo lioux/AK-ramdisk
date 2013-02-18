@@ -45,6 +45,9 @@ rm -f $INITD_DIR/99nstools
 rm -f $INITD_DIR/99lk-gpu
 # Zen
 rm -f $INITD_DIR/99ZenKernel
+# Xylon
+rm -f $INITD_DIR/95zipalign
+rm -f $INITD_DIR/98fruit
 
 # clean kernel setting app shared_prefs
 rm -rf /data/data/mobi.cyann.nstools/shared_prefs
