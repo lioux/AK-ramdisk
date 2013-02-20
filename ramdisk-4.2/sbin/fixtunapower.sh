@@ -11,6 +11,14 @@ else
  $bb echo "Init.d Directory Exist ..."
 fi
 
+if $bb [ ! -d /data/ak/backup ]; then
+ $bb echo "Making Backup Directory ..."
+ $bb mkdir /data/ak/backup
+ $bb chmod 777 /data/ak/backup
+else
+ $bb echo "Backup Directory Exist ..."
+fi
+
 if [ ! -e /system/lib/hw/power.tuna.so.bak ]; then
  $bb cp /system/lib/hw/power.tuna.so /system/lib/hw/power.tuna.so.bak
 fi
