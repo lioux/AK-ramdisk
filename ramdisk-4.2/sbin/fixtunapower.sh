@@ -28,10 +28,4 @@ $bb cp /sbin/power.tuna.so /system/lib/hw
 $bb chmod 644 /system/lib/hw/power.tuna.so
 $bb chmod 644 /system/lib/hw/power.tuna.so.bak
 
-# Backup Hostapd and Wpa
-$bb cp -vr /system/bin/hostapd /data/ak/backup
-$bb cp -vr /system/bin/hostapd_cli /data/ak/backup
-$bb cp -vr /system/bin/wpa_supplicant /data/ak/backup
-$bb cp -vr /system/bin/wpa_cli /data/ak/backup
-
 $bb mount -o ro,remount /system
