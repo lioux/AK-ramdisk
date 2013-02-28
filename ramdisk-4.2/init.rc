@@ -333,7 +333,7 @@ on boot
 
     # Set Interactive - hispeed_freq -
     chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 920000
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1060000
     chmod 0644 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 
     # Set - Gamma Adjustment -
