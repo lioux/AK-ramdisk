@@ -37,6 +37,7 @@ piggy.xzkern
 piggy.xzkern.S
 arch/arm/boot/compressed/ashldi3.S
 arch/arm/boot/compressed/piggy.xzkern
+cwm/system/lib/modules/*.ko
 mkboot
 zip
 boot.img
