@@ -1,0 +1,14 @@
+#!/system/bin/sh
+#
+# Lioux
+# Thanks to Lisan Xda
+# Enable FQ Codel
+#
+
+tc qdisc add dev p2p0 root fq_codel
+tc qdisc add dev rmnet0 root fq_codel
+tc qdisc add dev wlan0 root fq_codel
+echo 0 > /sys/class/net/p2p0/tx_queue_len
+echo 0 > /sys/class/net/rmnet0/tx_queue_len
+echo 0 > /sys/class/net/wlan0/tx_queue_len
+
