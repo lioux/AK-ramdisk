@@ -57,5 +57,5 @@ rm -rf /data/data/com.franco.kernel/shared_prefs
 rm -rf /data/data/com.liquid.control/shared_prefs
 
 # remove dalvik cache
-rm -rf /data/dalvik-cache
-rm -rf /cache/dalvik-cache
+#rm -rf /data/dalvik-cache
+#rm -rf /cache/dalvik-cache
