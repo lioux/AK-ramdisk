@@ -5,13 +5,12 @@
 ###
 ##
 # This script should be ALMOST an exact copy of the script
-# "create_bugreport_delayed.sh". Make sure to keep BOTH UP TO DATE.
+# "create_bugreport.sh". Make sure to keep BOTH UP TO DATE.
 #
-# The difference is that the other script execution is delayed by
-# X seconds. Why? Because some information can only be obtained after
-# certain phases of the boot process have occurred.
+# The difference is that this script execution is delayed by X seconds.
+# Why? Because some information can only be obtained after certain phases
+# of the boot process have occurred.
 ##
-
 
 # Copyright (c) 2013, lioux
 # All rights reserved.
@@ -55,9 +54,16 @@ LAST_KMSG="/proc/last_kmsg"
 REPORT_DIR="/cache/bugreport_${TIMESTAMP}/"
 REPORT_FILE="/mnt/sdcard/bugreport_${TIMESTAMP}.tar.bz2"
 
+# Number of seconds to delay before starting the bug report
+DELAY_SECONDS=60
+
 ###
 ## Functions
 ###
+
+delay_execution() {
+  sleep ${DELAY_SECONDS}
+}
 
 obtain_dmesg() {
   FILE_OUTPUT="dmesg.txt"
@@ -147,6 +153,8 @@ create_bugreport() {
 ###
 ## Execute
 ###
+
+delay_execution
 
 create_report_directory
 
