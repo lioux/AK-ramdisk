@@ -62,7 +62,7 @@ obtain_dumpstate() {
 obtain_dumpsys_specific() {
   DUMP_SERVICE="${1}"
 
-  ${DEBUG} dumpsys ${DUMP_SERVICE} > "${REPORT_DIR}/dumpsys_${DUMP_SERVICE}.txt"
+  ${DEBUG} dumpsys ${DUMP_SERVICE} > "${REPORT_DIR}/dumpsys_${DUMP_SERVICE}.txt" 2>/dev/null
 }
 
 obtain_dumpsys() {
