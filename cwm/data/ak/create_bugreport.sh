@@ -67,6 +67,7 @@ obtain_dumpsys_specific() {
 
 obtain_dumpsys() {
   obtain_dumpsys_specific activity
+  obtain_dumpsys_specific alarm
   obtain_dumpsys_specific battery
   obtain_dumpsys_specific batteryinfo
   obtain_dumpsys_specific connectivity
@@ -91,7 +92,7 @@ obtain_dumpsys() {
   obtain_dumpsys_specific usagestats
   obtain_dumpsys_specific usb
 # wifi gives TOO MUCH information about your network
-# enable at your own discretion
+# enable it at your own discretion
 #  obtain_dumpsys_specific wifi
   obtain_dumpsys_specific wifip2p
 }
@@ -139,7 +140,7 @@ create_report_directory
 
 obtain_dmesg
 
-# dumpstate takes a while and generates about 7MiB of informatin
+# dumpstate takes a while and generates about 7MiB of information
 # only uncomment if necessary
 #obtain_dumpstate
 
