@@ -360,7 +360,7 @@ on boot
     #write /sys/devices/platform/omapdss/manager0/gamma 6
 
     # Set - Power aware SMP scheduler -
-    write /sys/devices/system/cpu/sched_mc_power_savings 1
+    write /sys/devices/system/cpu/sched_mc_power_savings 0
 
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
