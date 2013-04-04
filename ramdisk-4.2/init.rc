@@ -324,11 +324,6 @@ on boot
     chown system system /sys/block/mmcblk0/queue/scheduler
     chmod 0664 /sys/block/mmcblk0/queue/scheduler
 
-    # Lower maximum - frequency when screen is off -
-    #chown system system /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
-    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 700000
-    #chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
-
     # Set correct permissions - cpufreq -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
@@ -341,12 +336,22 @@ on boot
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
 
-    # Set - min frequency -
+    # Set - min frequency when screen is off -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 350000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 180000
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
-    # Set - max frequency -
+    # Set - max frequency when screen is off -
+    #chown system system /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 350000
+    #chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
+
+    # Set - min frequency when screen is on -
+    #chown system system /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/screen_on_min_freq 350000
+    #chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq
+
+    # Set - max frequency when screen is on -
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1200000
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
