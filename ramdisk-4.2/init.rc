@@ -362,6 +362,9 @@ on boot
     # Set - Power aware SMP scheduler -
     write /sys/devices/system/cpu/sched_mc_power_savings 0
 
+    # Set - Content Adaptive Brightness -
+    write /sys/class/backlight/s6e8aa0/acl_set 0
+
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
