@@ -108,9 +108,7 @@ while true; do
   let cpuPercentage=cpuPercentage*100
 
   # protects against division by 0
-  if [ $cpuPercentage -eq 0 ]; then
-    cpuPercentage=0
-  else
+  if [ $cpuPercentage -ne 0 ]; then
     let cpuPercentage=cpuPercentage/period
   fi
 
