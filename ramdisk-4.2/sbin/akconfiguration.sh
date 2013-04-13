@@ -7,7 +7,7 @@ logbck="/data/ak/ak-boot.log.bck"
 #
 # Set sysctl Optimizations
 #
-/system/bin/set_sysctl
+#/system/bin/set_sysctl
 
 $bb cp -vr $log $logbck
 $bb rm -rf $log
