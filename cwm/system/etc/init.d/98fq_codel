@@ -20,3 +20,4 @@ echo 2 > /proc/sys/net/ipv4/tcp_ecn
 echo 1 > /proc/sys/net/ipv4/tcp_sack
 echo 1 > /proc/sys/net/ipv4/tcp_dsack
 echo 1 > /proc/sys/net/ipv4/tcp_low_latency
+echo 1 > /proc/sys/net/ipv4/tcp_timestamps
