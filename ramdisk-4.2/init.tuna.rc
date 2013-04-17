@@ -244,3 +244,12 @@ service battery_charger /charger
 service fixtunapower /sbin/fixtunapower.sh
     class main
     oneshot
+
+on property:sys.boot_completed=1
+  write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 15000
+  write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 95
+  write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 45000
+  write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
+  write /sys/devices/system/cpu/cpufreq/interactive/target_loads 85
+  write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
+  write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 537600
