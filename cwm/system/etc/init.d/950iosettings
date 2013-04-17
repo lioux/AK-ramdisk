@@ -1,7 +1,14 @@
 #!/system/bin/sh
 # chmod -R 755 /system/etc/init.d
-# By Osmosis
-# 7-Apr-2013
+# 16-Apr-2013 by Franco's Dev Team
+# malaroth, osm0sis, joaquinf, The Gingerbread Man, pkgnex, Khrushy, shreddintyres
+
+# disable sysctl.conf to prevent ROM interference
+if [ -e /system/etc/sysctl.conf ]; then
+  mount -o remount,rw /system;
+  mv /system/etc/sysctl.conf /system/etc/sysctl.conf.fkbak;
+  mount -o remount,ro /system;
+fi;
 
 # general queue tweaks
 for i in /sys/block/*/queue; do
@@ -10,7 +17,6 @@ for i in /sys/block/*/queue; do
   echo 2 > $i/rq_affinity;
   echo 0 > $i/nomerges;
   echo 0 > $i/add_random;
-  echo 0 > $i/iostats;
   echo 0 > $i/rotational;
 done;
 
@@ -23,11 +29,11 @@ while sleep 1; do
     if [ $scheduler == "deadline" ]; then
 
 # deadline tweaks
-echo 3500 > /sys/block/mmcblk0/queue/iosched/read_expire;
-echo 750 > /sys/block/mmcblk0/queue/iosched/write_expire;
-echo 1 > /sys/block/mmcblk0/queue/iosched/writes_starved;
+echo 350 > /sys/block/mmcblk0/queue/iosched/read_expire;
+echo 2750 > /sys/block/mmcblk0/queue/iosched/write_expire;
+echo 2 > /sys/block/mmcblk0/queue/iosched/writes_starved;
 echo 1 > /sys/block/mmcblk0/queue/iosched/front_merges;
-echo 1 > /sys/block/mmcblk0/queue/iosched/fifo_batch;
+echo 16 > /sys/block/mmcblk0/queue/iosched/fifo_batch;
 
     elif [ $scheduler == "row" ]; then
 
@@ -49,7 +55,7 @@ echo 25 > /sys/block/mmcblk0/queue/iosched/rd_idle_data_freq;
     elif [ $scheduler == "cfq" ]; then
 
 # cfq tweaks
-echo 8 > /sys/block/mmcblk0/queue/iosched/quantum;
+echo 4 > /sys/block/mmcblk0/queue/iosched/quantum;
 echo 80 > /sys/block/mmcblk0/queue/iosched/fifo_expire_sync;
 echo 330 > /sys/block/mmcblk0/queue/iosched/fifo_expire_async;
 echo 12582912 > /sys/block/mmcblk0/queue/iosched/back_seek_max;
@@ -58,7 +64,7 @@ echo 60 > /sys/block/mmcblk0/queue/iosched/slice_sync;
 echo 50 > /sys/block/mmcblk0/queue/iosched/slice_async;
 echo 2 > /sys/block/mmcblk0/queue/iosched/slice_async_rq;
 echo 0 > /sys/block/mmcblk0/queue/iosched/slice_idle;
-echo 7 > /sys/block/mmcblk0/queue/iosched/group_idle;
+echo 0 > /sys/block/mmcblk0/queue/iosched/group_idle;
 echo 1 > /sys/block/mmcblk0/queue/iosched/low_latency;
 ## N4 and N10 cfq adds tl, which was hardcoded previously
 echo 300 > /sys/block/mmcblk0/queue/iosched/target_latency;
