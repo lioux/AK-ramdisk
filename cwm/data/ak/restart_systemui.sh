@@ -43,6 +43,7 @@ SYSTEMUI_SERVICE="com.android.systemui/.SystemUIService"
 
 #
 ALWAYS_EXECUTE=""
+SYSTEMUI_MEMORY_USAGE=""
 
 ###
 ## Functions
@@ -86,7 +87,6 @@ restart_systemui() {
 ###
 
 ALWAYS_EXECUTE=$( check_command_line_always_execute "${@}" )
-SYSTEMUI_MEMORY_USAGE=$( obtain_systemui_memory_usage )
 
 ##
 # Either always restart systemui or restart conditionally.
@@ -98,6 +98,8 @@ SYSTEMUI_MEMORY_USAGE=$( obtain_systemui_memory_usage )
 if [ "x${ALWAYS_EXECUTE}" = "xtrue" ]; then
 	restart_systemui
 else 
+
+        SYSTEMUI_MEMORY_USAGE=$( obtain_systemui_memory_usage )
 
 	##
 	# only restart systemui if it is using more than the maximum memory allowed
